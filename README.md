@@ -40,6 +40,7 @@ node referee.mjs wait --as P1 [--timeout 120]
 node referee.mjs clue <text...> --as P1
 node referee.mjs guess P2=40 P3=75 --as P1
 node referee.mjs said --as P1
+node referee.mjs open [--id current]
 node referee.mjs play | pass --as P1
 node referee.mjs report [--id current]
 node referee.mjs serve [--port 8768] [--key token]

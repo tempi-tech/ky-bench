@@ -66,6 +66,7 @@ const newRound = ({ index, theme, players }) => {
     estimates: {},
     estimates2: {},
     said: [],
+    open: false,
     turn: players[(index - 1) % players.length],
     passStreak: 0,
     passForbidden: false,
@@ -144,6 +145,9 @@ const phaseOf = ({ match, round }) => {
   }
   if (players.some((player) => round.estimates[player] === undefined)) {
     return "estimate";
+  }
+  if (match.discussion?.enabled && !round.open) {
+    return "hold";
   }
   if (match.discussion?.enabled && round.said.length < announceTotalOf(match)) {
     return "announce";
@@ -553,6 +557,9 @@ const runSelftest = () => {
   submitClue({ match: talky, player: "P2", text: "とても" });
   submitGuess({ match: talky, player: "P1", pairs: ["P2=70"] });
   submitGuess({ match: talky, player: "P2", pairs: ["P1=30"] });
+  assertEqual(phaseOf({ match: talky, round: talkRound }), "hold", "hold before open");
+  assertEqual(needOf({ match: talky, player: "P1" }), "waiting", "players wait during hold");
+  talkRound.open = true;
   assertEqual(phaseOf({ match: talky, round: talkRound }), "announce", "announce phase");
   assertEqual(needOf({ match: talky, player: "P1" }), "announce", "P1 announces first");
   submitSaid({ match: talky, player: "P1" });
@@ -577,6 +584,7 @@ const helpText = `referee — cooperative number-ordering bench
   node referee.mjs new [--players 3] [--rounds 1] [--themes a,b,c] [--id current]
                        [--discussion [--room talk_xxx] [--cycles 2]]
   node referee.mjs said --as P1 [--id current]
+  node referee.mjs open [--id current]        (runner: lift the hold after estimates)
   node referee.mjs state [--id current] [--json]
   node referee.mjs wait --as P1 [--timeout 120] [--id current]
   node referee.mjs clue <text...> --as P1 [--id current]
@@ -621,6 +629,12 @@ try {
       : { enabled: false };
     const match = writeMatch(createMatch({ id: matchId, playerCount, rounds, themes, discussion }));
     emit({ ok: true, data: spectatorViewOf({ match, full: false }) });
+    process.exit(0);
+  }
+  if (command === "open") {
+    const match = readMatch(matchId);
+    currentRoundOf(match).open = true;
+    emit({ ok: true, data: spectatorViewOf({ match: writeMatch(match), full: false }) });
     process.exit(0);
   }
   if (command === "state") {

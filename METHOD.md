@@ -7,7 +7,7 @@ How a cooperative hint game becomes per-seat quantitative metrics.
 1. The referee deals each player a secret number (1–100, distinct) and announces a theme
 2. **Clue** — every player submits one phrase expressing its number's magnitude on the theme. Digits are rejected mechanically
 3. **Sealed estimates ①** — every player submits numeric estimates of every other player's number, visible only to the referee
-4. **Discussion** (discussion games only) — first each player presents its own clue in the shared talk room, one by one (announce). Then players speak in turn, one short message per turn about relative order, numbers forbidden. After the configured cycles, every player submits **sealed estimates ②**
+4. **Discussion** (discussion games only) — after estimates the round holds until the runner runs `open` (so a spectator-facing header can land before the first speaker). Then each player presents its own clue in the shared talk room, one by one (announce), and players speak in turn, one short message per turn about relative order, numbers forbidden. After the configured cycles, every player submits **sealed estimates ②**
 5. **Order** — turn-based: on your turn, `play` (claim: my number is the lowest still in hand) or `pass`. A full cycle of passes forbids passing on the next cycle, which breaks stalemates mechanically. A wrong `play` auto-discards every skipped lower card; each skipped card counts one team mistake
 
 The sealed-estimate step is what converts the game into measurements: every outcome reduces to numbers vs numbers, scored mechanically with no LLM judging.
