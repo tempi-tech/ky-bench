@@ -1,0 +1,776 @@
+{
+  "summary": {
+    "game": "g001",
+    "kind": "one-round-discussion-6p",
+    "blind": true,
+    "seats": {
+      "P1": "gemini-3.7-flash",
+      "P2": "claude-opus-5 · medium",
+      "P3": "claude-fable-5 · medium",
+      "P4": "kmodel_latest · high",
+      "P5": "gpt-5.6-sol · medium",
+      "P6": "grok-4.6 · medium"
+    },
+    "theme": "強そうな生き物",
+    "mistakes": 2,
+    "perfectRounds": 0,
+    "roundsPlayed": 1,
+    "metrics": {
+      "P1": {
+        "legibility": 0.658,
+        "decoding": 0.664,
+        "discussionGain": {
+          "decoding": -3.5999999999999996,
+          "legibility": -3.200000000000001
+        },
+        "inconsistentPlays": 0
+      },
+      "P2": {
+        "legibility": 0.67,
+        "decoding": 0.856,
+        "discussionGain": {
+          "decoding": -0.5999999999999996,
+          "legibility": -2.4000000000000004
+        },
+        "inconsistentPlays": 0
+      },
+      "P3": {
+        "legibility": 0.796,
+        "decoding": 0.778,
+        "discussionGain": {
+          "decoding": 0.39999999999999947,
+          "legibility": -1.7999999999999998
+        },
+        "inconsistentPlays": 0
+      },
+      "P4": {
+        "legibility": 0.856,
+        "decoding": 0.754,
+        "discussionGain": {
+          "decoding": -1.9999999999999991,
+          "legibility": 2.2
+        },
+        "inconsistentPlays": 0
+      },
+      "P5": {
+        "legibility": 0.646,
+        "decoding": 0.8140000000000001,
+        "discussionGain": {
+          "decoding": -0.7999999999999998,
+          "legibility": -7.000000000000001
+        },
+        "inconsistentPlays": 0
+      },
+      "P6": {
+        "legibility": 0.958,
+        "decoding": 0.718,
+        "discussionGain": {
+          "decoding": -5,
+          "legibility": 0.6000000000000001
+        },
+        "inconsistentPlays": 0
+      }
+    },
+    "tokens": {
+      "P2": {
+        "output": 4406,
+        "apiCalls": 27
+      },
+      "P3": {
+        "output": 4612,
+        "apiCalls": 29
+      }
+    },
+    "notes": [
+      "First game under the one-round-per-game unit and the announce phase (players present their own clues in the talk room).",
+      "The agreed order P6-P1-P5-P2-P4-P3 was played out faithfully; the true order was P6-P5-P1-P2-P3-P4. Both mistakes were consensus errors: P1(33)/P5(20) swapped, and P4(84) played before P3(82) after the lion-vs-bear debate missed by 2 points.",
+      "The theme header landed mid-announce due to an announcer restart; the hold-gate (referee open) was added after this game to guarantee ordering."
+    ]
+  },
+  "seats": {
+    "P1": {
+      "agentType": "antigravity",
+      "model": "gemini-3.7-flash",
+      "effort": null,
+      "note": "model does not expose reasoning effort"
+    },
+    "P2": {
+      "agentType": "claude",
+      "model": "claude-opus-5",
+      "effort": "medium"
+    },
+    "P3": {
+      "agentType": "claude",
+      "model": "claude-fable-5",
+      "effort": "medium"
+    },
+    "P4": {
+      "agentType": "qoder",
+      "model": "kmodel_latest",
+      "effort": "high",
+      "note": "qoder has no medium tier; middle tier of low/high/max used"
+    },
+    "P5": {
+      "agentType": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "medium"
+    },
+    "P6": {
+      "agentType": "grok",
+      "model": "grok-4.6",
+      "effort": "medium"
+    }
+  },
+  "blind": true,
+  "report": {
+    "mistakes": 2,
+    "perfectRounds": 0,
+    "roundsPlayed": 1,
+    "decoding": {
+      "P1": {
+        "samples": 5,
+        "mae": 11.2,
+        "bias": 9.6,
+        "skill": 0.664
+      },
+      "P2": {
+        "samples": 5,
+        "mae": 4.8,
+        "bias": 0,
+        "skill": 0.856
+      },
+      "P3": {
+        "samples": 5,
+        "mae": 7.4,
+        "bias": 1.8,
+        "skill": 0.778
+      },
+      "P4": {
+        "samples": 5,
+        "mae": 8.2,
+        "bias": 3.8,
+        "skill": 0.754
+      },
+      "P5": {
+        "samples": 5,
+        "mae": 6.2,
+        "bias": -4.6,
+        "skill": 0.8140000000000001
+      },
+      "P6": {
+        "samples": 5,
+        "mae": 9.4,
+        "bias": 5.8,
+        "skill": 0.718
+      }
+    },
+    "legibility": {
+      "P1": {
+        "samples": 5,
+        "mae": 11.4,
+        "bias": -11.4,
+        "skill": 0.658
+      },
+      "P2": {
+        "samples": 5,
+        "mae": 11,
+        "bias": 11,
+        "skill": 0.67
+      },
+      "P3": {
+        "samples": 5,
+        "mae": 6.8,
+        "bias": 6.8,
+        "skill": 0.796
+      },
+      "P4": {
+        "samples": 5,
+        "mae": 4.8,
+        "bias": -2.8,
+        "skill": 0.856
+      },
+      "P5": {
+        "samples": 5,
+        "mae": 11.8,
+        "bias": 11.8,
+        "skill": 0.646
+      },
+      "P6": {
+        "samples": 5,
+        "mae": 1.4,
+        "bias": 1,
+        "skill": 0.958
+      }
+    },
+    "discussionGain": {
+      "P1": {
+        "decoding": -3.5999999999999996,
+        "legibility": -3.200000000000001
+      },
+      "P2": {
+        "decoding": -0.5999999999999996,
+        "legibility": -2.4000000000000004
+      },
+      "P3": {
+        "decoding": 0.39999999999999947,
+        "legibility": -1.7999999999999998
+      },
+      "P4": {
+        "decoding": -1.9999999999999991,
+        "legibility": 2.2
+      },
+      "P5": {
+        "decoding": -0.7999999999999998,
+        "legibility": -7.000000000000001
+      },
+      "P6": {
+        "decoding": -5,
+        "legibility": 0.6000000000000001
+      }
+    },
+    "consistency": {
+      "P1": {
+        "inconsistentPlays": 0
+      },
+      "P2": {
+        "inconsistentPlays": 0
+      },
+      "P3": {
+        "inconsistentPlays": 0
+      },
+      "P4": {
+        "inconsistentPlays": 0
+      },
+      "P5": {
+        "inconsistentPlays": 0
+      },
+      "P6": {
+        "inconsistentPlays": 0
+      }
+    },
+    "incidents": []
+  },
+  "talk": {
+    "room": "talk_c25a8d28",
+    "messages": [
+      {
+        "seq": 1,
+        "from": null,
+        "text": "【開幕】Same Scale #g001 — 協力型の数字ゲームです。6人のプレイヤーがそれぞれ1〜100の秘密の数字を持ち、お題に沿ったヒントの強弱だけで互いの数字を読み合い、全員で小さい順にカードを出し切ることを目指します。各席の正体(モデル)は終局まで完全ブラインド。ヒント提出が済んだら、一人ずつ自分のヒントをこの部屋で発表してもらいます。"
+      },
+      {
+        "seq": 2,
+        "from": "P1",
+        "text": "P1です。私のヒントは『柴犬』です。身近で可愛いですが、そこそこ元気です。"
+      },
+      {
+        "seq": 3,
+        "from": "P2",
+        "text": "P2です。私のヒントは『大型犬』。人に馴れてはいるけど、本気で来られたら大人でも止められない感じです。"
+      },
+      {
+        "seq": 4,
+        "from": "P3",
+        "text": "P3です。私のヒントは『ライオン』。百獣の王、かなり強い方だと思っています。"
+      },
+      {
+        "seq": 5,
+        "from": "P4",
+        "text": "P4です。私のヒントは『ヒグマ』。森の王者級の迫力です。"
+      },
+      {
+        "seq": 6,
+        "from": null,
+        "text": "【お題発表】今回のお題は「強そうな生き物」。全員のヒント提出と初回見積もりが完了しました。ここから一人ずつ、自分のヒントを発表してもらいます(P1→P6)。数字は禁止です。"
+      },
+      {
+        "seq": 7,
+        "from": "P5",
+        "text": "P5です。私のヒントは『アライグマ』です。小柄でも意外と気が強そうです。"
+      },
+      {
+        "seq": 8,
+        "from": "P6",
+        "text": "P6です。私のヒントは『ダンゴムシ』。転がって身を守るくらいが精一杯です。"
+      },
+      {
+        "seq": 9,
+        "from": "P1",
+        "text": "P1（柴犬）です。ダンゴムシのP6さんよりは上で、大型犬のP2さんや百獣・猛獣のP3・P4さんよりは確実に下です。アライグマのP5さんとは近い位置ですが、アライグマと同等か少し上くらいと見ています。"
+      },
+      {
+        "seq": 10,
+        "from": "P2",
+        "text": "P2（大型犬）です。P6・P5・P1より上、P3・P4より下、というのが自分の位置。中では真ん中よりやや下寄りの感覚なので、P1さんとの差はそこまで大きくないと思っています。"
+      },
+      {
+        "seq": 11,
+        "from": "P3",
+        "text": "P3（ライオン）です。P6・P5・P1・P2の皆さんより確実に上です。P4さんのヒグマとは接戦ですが、体格差を考えると自分の方がやや下だと見ています。上から二番目のつもりです。"
+      },
+      {
+        "seq": 12,
+        "from": "P4",
+        "text": "P4（ヒグマ）です。P6・P5・P1・P2の皆さんよりは確実に上だと思います。P3さんのライオンとはかなりの接戦で、百獣の王の風格を考えると自分はほんの少し下かもしれません。上から二番手前後のつもりです。"
+      },
+      {
+        "seq": 13,
+        "from": "P5",
+        "text": "P5（アライグマ）です。P6さんより上、P2・P3・P4さんより下です。P1さんとは近いですが、私は柴犬より少し上のつもりです。"
+      },
+      {
+        "seq": 14,
+        "from": null,
+        "text": "【相談タイム】全員のヒントが出揃いました。ここから2巡の相談です。誰が高くて誰が低いか、数字を使わずに読み合ってください。"
+      },
+      {
+        "seq": 15,
+        "from": "P6",
+        "text": "P6です。ダンゴムシは明らかに最弱なので、自分は一番下だと思います。残りの皆さんより確実に下で、最初に出すべきは自分です。"
+      },
+      {
+        "seq": 16,
+        "from": "P1",
+        "text": "P1です。P6さんが一番手で良さそうですね。P5さんが柴犬より上という感覚であれば、P6 → P1 → P5 → P2 → (P3・P4) の順で出すのがスムーズだと思います。"
+      },
+      {
+        "seq": 17,
+        "from": "P2",
+        "text": "P2です。P1さんの並び（P6→P1→P5→P2→P3・P4）に賛成です。私はP5さんの次、P3・P4さんの前で出ます。最後の二人はお二人の感覚に任せます。"
+      },
+      {
+        "seq": 18,
+        "from": "P3",
+        "text": "P3です。並びには賛成です。最後の二枚ですが、P4さんが「自分の方がほんの少し下かも」という感覚なら、P4さん→私の順にしましょう。私のライオンはかなり強めの部類なので、最後に出す覚悟があります。つまり P6→P1→P5→P2→P4→P3 で行きましょう。"
+      },
+      {
+        "seq": 19,
+        "from": "P4",
+        "text": "P4です。P6→P1→P5→P2→P4→P3の並びに賛成です。私はP2さんの大型犬より明らかに上で、P3さんの百獣の王には一日の長があると見て、自分は五番手で出ます。"
+      },
+      {
+        "seq": 20,
+        "from": "P5",
+        "text": "P5です。合意した並びに賛成です。P6さんとP1さんの後、P2さんの前で出します。"
+      },
+      {
+        "seq": 21,
+        "from": "P6",
+        "text": "P6です。合意の並び、P6→P1→P5→P2→P4→P3に賛成です。私は先頭で出します。"
+      },
+      {
+        "seq": 22,
+        "from": "P6",
+        "text": "P6です。戻りました。先頭は出せましたが、P1とP5、P3とP4のところでミスが二つ出てしまいましたね。"
+      },
+      {
+        "seq": 23,
+        "from": null,
+        "text": "【出し切りフェーズ】相談終了、最終見積もりも提出されました。自分の数字が場で最小だと思う人から出していきます。スキップされたカード1枚につきチームに1ミスです。"
+      },
+      {
+        "seq": 24,
+        "from": null,
+        "text": "【結果】P6(4) → P5(20) → P1(33) → P2(35) → P3(82) → P4(84) — ミス2"
+      },
+      {
+        "seq": 25,
+        "from": null,
+        "text": "【終局】ここで各席の正体を公開します — P1=antigravity:gemini-3.7-flash / P2=claude:claude-opus-5·medium / P3=claude:claude-fable-5·medium / P4=qoder:kmodel_latest·high / P5=codex:gpt-5.6-sol·medium / P6=grok:grok-4.6·medium 。観戦ありがとうございました。"
+      },
+      {
+        "seq": 26,
+        "from": "P2",
+        "text": "P2です。お疲れさまでした。ミスは二つとも、近い者同士の並べ方でしたね。柴犬とアライグマ、ライオンとヒグマのように差がわずかな時は、自己申告の上下が実際と逆になりやすいと痛感しました。私の手番は無事に通せました。"
+      },
+      {
+        "seq": 27,
+        "from": "P1",
+        "text": "P1です。お疲れ様でした！私の柴犬（33）とP5さんのアライグマ（20）の近さ、そしてライオン（82）とヒグマ（84）の超僅差でしたね。惜しかったですがナイスファイトでした！"
+      },
+      {
+        "seq": 28,
+        "from": "P3",
+        "text": "P3です。お疲れさまでした。ライオンとヒグマは本当に紙一重で、結果はP4さんの方がわずかに上でしたね。私が譲った判断が裏目に出ました。合計ミス2、僅差の読み合いが悔しいところですが、良い勝負でした！"
+      },
+      {
+        "seq": 29,
+        "from": "P6",
+        "text": "P6です。お疲れさまでした。ダンゴムシはさすがに先頭で正解でしたが、近接カードの自己申告が二つとも逆になったのが痛い。僅差の読み合いは難しいですね。楽しかったです！"
+      },
+      {
+        "seq": 30,
+        "from": "P2",
+        "text": "P2です。皆さんお疲れさまでした、僅差続きの良いゲームでした。またやりましょう。"
+      },
+      {
+        "seq": 31,
+        "from": "P5",
+        "text": "そうですね。私がP1さんより先に出るべきでした。ヒントの近い組と猛獣組の読み違いが惜しかったです。お疲れさまでした！"
+      },
+      {
+        "seq": 32,
+        "from": "P6",
+        "text": "P6です。皆さんお疲れさまでした。またやりましょう！"
+      },
+      {
+        "seq": 33,
+        "from": "P2",
+        "text": "P2です。近い組は「どちらが上か」より「差が小さい」ことを共有できると事故が減りそうですね。皆さんお疲れさまでした、楽しかったです！"
+      },
+      {
+        "seq": 34,
+        "from": "P3",
+        "text": "P3です。皆さんお疲れさまでした。次はもっと僅差を見極めたいですね。またやりましょう！"
+      },
+      {
+        "seq": 35,
+        "from": "P1",
+        "text": "P1です。本当にそうですね！差の小ささを意識したすり合わせ、次回に活かしたいです。皆さんありがとうございました、またぜひ対戦しましょう！"
+      },
+      {
+        "seq": 36,
+        "from": "P5",
+        "text": "その視点、いいですね。僅差の組は上下を断定しすぎず、近さを共有するのが大事そうです。またやりましょう！"
+      },
+      {
+        "seq": 37,
+        "from": "P6",
+        "text": "P6です。戻ってきました。P2さんの言う通り、近い組は上下を決め打ちせず『近い』と共有する方が安全そうですね。先頭はわかりやすかったので、次回は中盤の僅差を丁寧にやりたいです。"
+      },
+      {
+        "seq": 38,
+        "from": "P1",
+        "text": "P1です。同感です！次回は『ほぼ同等・僅差』という情報も積極的に活用してノーミスを目指しましょう。それでは失礼します！"
+      },
+      {
+        "seq": 39,
+        "from": "P5",
+        "text": "同感です。次は僅差の扱いを丁寧にしましょう。私はこれで退出します、皆さんありがとうございました！"
+      },
+      {
+        "seq": 40,
+        "from": "P6",
+        "text": "P6です。皆さんありがとうございました。私もこれで失礼します。また！"
+      }
+    ]
+  },
+  "id": "g001",
+  "title": "6 players · 1 round",
+  "createdAt": "2026-08-20T08:11:58.704Z",
+  "updatedAt": "2026-08-20T08:22:34.425Z",
+  "status": "over",
+  "playerCount": 6,
+  "totalRounds": 1,
+  "themes": [
+    "強そうな生き物"
+  ],
+  "players": {
+    "P1": {
+      "name": "Player 1"
+    },
+    "P2": {
+      "name": "Player 2"
+    },
+    "P3": {
+      "name": "Player 3"
+    },
+    "P4": {
+      "name": "Player 4"
+    },
+    "P5": {
+      "name": "Player 5"
+    },
+    "P6": {
+      "name": "Player 6"
+    }
+  },
+  "discussion": {
+    "enabled": true,
+    "room": "talk_c25a8d28",
+    "cycles": 2
+  },
+  "incidents": [],
+  "rounds": [
+    {
+      "index": 1,
+      "theme": "強そうな生き物",
+      "numbers": {
+        "P1": 33,
+        "P2": 35,
+        "P3": 82,
+        "P4": 84,
+        "P5": 20,
+        "P6": 4
+      },
+      "clues": {
+        "P2": "大型犬",
+        "P1": "柴犬",
+        "P3": "ライオン",
+        "P6": "ダンゴムシ",
+        "P5": "アライグマ",
+        "P4": "ヒグマ"
+      },
+      "estimates": {
+        "P1": {
+          "P2": 48,
+          "P3": 85,
+          "P4": 92,
+          "P5": 28,
+          "P6": 10
+        },
+        "P2": {
+          "P1": 27,
+          "P3": 85,
+          "P4": 93,
+          "P5": 18,
+          "P6": 3
+        },
+        "P5": {
+          "P1": 15,
+          "P2": 35,
+          "P3": 80,
+          "P4": 90,
+          "P6": 3
+        },
+        "P3": {
+          "P1": 25,
+          "P2": 45,
+          "P4": 92,
+          "P5": 32,
+          "P6": 5
+        },
+        "P4": {
+          "P1": 25,
+          "P2": 42,
+          "P3": 95,
+          "P5": 18,
+          "P6": 5
+        },
+        "P6": {
+          "P1": 32,
+          "P2": 48,
+          "P3": 78,
+          "P4": 88,
+          "P5": 20
+        }
+      },
+      "estimates2": {
+        "P2": {
+          "P1": 22,
+          "P3": 84,
+          "P4": 88,
+          "P5": 26,
+          "P6": 3
+        },
+        "P5": {
+          "P1": 15,
+          "P2": 35,
+          "P3": 85,
+          "P4": 75,
+          "P6": 5
+        },
+        "P1": {
+          "P2": 55,
+          "P3": 90,
+          "P4": 80,
+          "P5": 40,
+          "P6": 8
+        },
+        "P3": {
+          "P1": 25,
+          "P2": 45,
+          "P4": 78,
+          "P5": 33,
+          "P6": 4
+        },
+        "P6": {
+          "P1": 24,
+          "P5": 32,
+          "P2": 50,
+          "P4": 85,
+          "P3": 92
+        },
+        "P4": {
+          "P1": 22,
+          "P2": 45,
+          "P3": 93,
+          "P5": 28,
+          "P6": 5
+        }
+      },
+      "said": [
+        {
+          "player": "P1",
+          "at": "2026-08-20T08:16:22.225Z"
+        },
+        {
+          "player": "P2",
+          "at": "2026-08-20T08:16:29.178Z"
+        },
+        {
+          "player": "P3",
+          "at": "2026-08-20T08:16:35.835Z"
+        },
+        {
+          "player": "P4",
+          "at": "2026-08-20T08:16:52.434Z"
+        },
+        {
+          "player": "P5",
+          "at": "2026-08-20T08:17:03.237Z"
+        },
+        {
+          "player": "P6",
+          "at": "2026-08-20T08:17:11.383Z"
+        },
+        {
+          "player": "P1",
+          "at": "2026-08-20T08:17:16.566Z"
+        },
+        {
+          "player": "P2",
+          "at": "2026-08-20T08:17:25.165Z"
+        },
+        {
+          "player": "P3",
+          "at": "2026-08-20T08:17:40.173Z"
+        },
+        {
+          "player": "P4",
+          "at": "2026-08-20T08:18:40.047Z"
+        },
+        {
+          "player": "P5",
+          "at": "2026-08-20T08:18:58.277Z"
+        },
+        {
+          "player": "P6",
+          "at": "2026-08-20T08:19:08.259Z"
+        },
+        {
+          "player": "P1",
+          "at": "2026-08-20T08:19:14.828Z"
+        },
+        {
+          "player": "P2",
+          "at": "2026-08-20T08:19:22.953Z"
+        },
+        {
+          "player": "P3",
+          "at": "2026-08-20T08:19:48.409Z"
+        },
+        {
+          "player": "P4",
+          "at": "2026-08-20T08:20:27.088Z"
+        },
+        {
+          "player": "P5",
+          "at": "2026-08-20T08:20:34.408Z"
+        },
+        {
+          "player": "P6",
+          "at": "2026-08-20T08:20:50.811Z"
+        }
+      ],
+      "turn": null,
+      "passStreak": 0,
+      "passForbidden": false,
+      "plays": [
+        {
+          "player": "P6",
+          "number": 4,
+          "kind": "played",
+          "ok": true,
+          "at": "2026-08-20T08:22:00.324Z"
+        },
+        {
+          "player": "P5",
+          "number": 20,
+          "kind": "skipped",
+          "at": "2026-08-20T08:22:02.668Z"
+        },
+        {
+          "player": "P1",
+          "number": 33,
+          "kind": "played",
+          "ok": false,
+          "at": "2026-08-20T08:22:02.668Z"
+        },
+        {
+          "player": "P2",
+          "number": 35,
+          "kind": "played",
+          "ok": true,
+          "at": "2026-08-20T08:22:09.629Z"
+        },
+        {
+          "player": "P3",
+          "number": 82,
+          "kind": "skipped",
+          "at": "2026-08-20T08:22:34.425Z"
+        },
+        {
+          "player": "P4",
+          "number": 84,
+          "kind": "played",
+          "ok": false,
+          "at": "2026-08-20T08:22:34.425Z"
+        }
+      ],
+      "actions": [
+        {
+          "player": "P1",
+          "action": "pass",
+          "at": "2026-08-20T08:21:22.874Z"
+        },
+        {
+          "player": "P2",
+          "action": "pass",
+          "at": "2026-08-20T08:21:26.060Z"
+        },
+        {
+          "player": "P3",
+          "action": "pass",
+          "at": "2026-08-20T08:21:37.892Z"
+        },
+        {
+          "player": "P4",
+          "action": "pass",
+          "at": "2026-08-20T08:21:44.226Z"
+        },
+        {
+          "player": "P5",
+          "action": "pass",
+          "at": "2026-08-20T08:21:46.818Z"
+        },
+        {
+          "player": "P6",
+          "action": "play",
+          "at": "2026-08-20T08:22:00.323Z"
+        },
+        {
+          "player": "P1",
+          "action": "play",
+          "at": "2026-08-20T08:22:02.667Z"
+        },
+        {
+          "player": "P2",
+          "action": "play",
+          "at": "2026-08-20T08:22:09.628Z"
+        },
+        {
+          "player": "P3",
+          "action": "pass",
+          "at": "2026-08-20T08:22:16.093Z"
+        },
+        {
+          "player": "P4",
+          "action": "play",
+          "at": "2026-08-20T08:22:34.425Z"
+        }
+      ],
+      "mistakes": 2
+    }
+  ]
+}
