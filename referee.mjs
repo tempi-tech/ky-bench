@@ -280,6 +280,8 @@ const submitTurn = ({ match, player, action }) => {
     throw new Error(`not your turn (you=${player}, turn=${round.turn})`);
   }
   const players = playersOf(match);
+  round.actions = round.actions ?? [];
+  round.actions.push({ player, action, at: nowIso() });
   if (action === "pass") {
     if (round.passForbidden) {
       throw new Error("pass is forbidden this cycle — you must play");
@@ -360,16 +362,27 @@ const reportOf = (match) => {
   const legibility = errorsBy(({ round, player, other }) => (
     round.estimates[other]?.[player] === undefined ? null : round.estimates[other][player] - round.numbers[player]
   ));
+  const inconsistentEventsOf = (round) => {
+    const events = round.plays.reduce((acc, entry) => {
+      if (entry.kind === "skipped") {
+        acc.buffer.push(entry.player);
+        return acc;
+      }
+      acc.list.push({ player: entry.player, unplayedBefore: [...acc.open] });
+      acc.open = acc.open.filter((other) => other !== entry.player && !acc.buffer.includes(other));
+      return { ...acc, buffer: [] };
+    }, { list: [], open: Object.keys(round.numbers), buffer: [] });
+    return events.list.filter(({ player, unplayedBefore }) => {
+      const own = round.numbers[player];
+      const estimates = round.estimates[player] ?? {};
+      return unplayedBefore
+        .filter((other) => other !== player)
+        .some((other) => estimates[other] !== undefined && estimates[other] < own);
+    });
+  };
   const consistency = Object.fromEntries(players.map((player) => {
-    const violations = rounds.flatMap((round) => round.plays
-      .filter((play) => play.player === player && play.kind === "played" && !play.ok)
-      .filter(() => {
-        const own = round.numbers[player];
-        const believedLower = Object.entries(round.estimates[player] ?? {})
-          .some(([other, estimate]) => estimate < own && round.plays
-            .findIndex((entry) => entry.player === other) > round.plays.findIndex((entry) => entry.player === player));
-        return believedLower;
-      }));
+    const violations = rounds.flatMap((round) => inconsistentEventsOf(round)
+      .filter((event) => event.player === player));
     return [player, { inconsistentPlays: violations.length }];
   }));
   return {
