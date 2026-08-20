@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Same Scale</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Outfit:wght@400;500;620&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #0c0b09; color: #f3ead6; font-family: Outfit, sans-serif; padding: 28px 32px; }
+      .kicker { margin: 0; letter-spacing: 0.22em; text-transform: uppercase; font-size: 12px; color: rgba(243, 234, 214, 0.55); }
+      h1 { margin: 8px 0 2px; font-family: Fraunces, serif; font-weight: 500; font-size: 34px; letter-spacing: -0.02em; }
+      .meta { margin: 0 0 24px; color: rgba(243, 234, 214, 0.7); }
+      .meta b { color: #d9b56a; font-weight: 500; }
+      .theme { font-family: Fraunces, serif; font-size: 26px; margin: 0 0 18px; }
+      .theme span { color: #d9b56a; }
+      .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 24px; }
+      .card { border: 1px solid rgba(243, 234, 214, 0.16); padding: 14px 16px; }
+      .card.turn { border-color: #d9b56a; }
+      .card .who { letter-spacing: 0.18em; text-transform: uppercase; font-size: 11px; color: #d9b56a; margin: 0 0 8px; }
+      .card .clue { margin: 0; font-size: 17px; line-height: 1.5; min-height: 3em; }
+      .card .num { font-family: "IBM Plex Mono", monospace; color: rgba(243, 234, 214, 0.6); font-size: 13px; margin: 8px 0 0; }
+      .line { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; min-height: 56px; margin-bottom: 20px; }
+      .stone { border: 1px solid rgba(243, 234, 214, 0.25); padding: 8px 14px; font-family: "IBM Plex Mono", monospace; font-size: 18px; }
+      .stone small { display: block; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(243, 234, 214, 0.55); }
+      .stone.bad { border-color: #c96a5a; color: #e8a496; }
+      .foot { color: rgba(243, 234, 214, 0.7); font-size: 14px; }
+      .foot b { color: #d9b56a; font-weight: 500; }
+    </style>
+  </head>
+  <body>
+    <p class="kicker">AGI Lab · Same Scale</p>
+    <h1 id="title">—</h1>
+    <p class="meta" id="meta"></p>
+    <p class="theme" id="theme"></p>
+    <div class="cards" id="cards"></div>
+    <div class="line" id="line"></div>
+    <p class="foot" id="foot"></p>
+    <script>
+      const query = window.location.search;
+      const render = (view) => {
+        if (!view || view.error) {
+          return;
+        }
+        document.getElementById("title").textContent = view.status === "over" ? "Final" : `Round ${view.round} / ${view.totalRounds}`;
+        document.getElementById("meta").innerHTML = `phase: <b>${view.phase}</b> · mistakes: <b>${view.mistakes}</b>${view.status === "over" ? " · <b>game over</b>" : ""}`;
+        document.getElementById("theme").innerHTML = `お題: <span>${view.theme}</span>`;
+        const cards = document.getElementById("cards");
+        cards.replaceChildren();
+        for (const [id, player] of Object.entries(view.players)) {
+          const card = document.createElement("div");
+          card.className = `card${view.turn === id && view.phase === "order" ? " turn" : ""}`;
+          const number = view.numbers?.[id];
+          card.innerHTML = `<p class="who">${player.name}</p><p class="clue">${view.clues[id] ?? "…"}</p>` +
+            (number === undefined ? "" : `<p class="num">number: ${number}</p>`);
+          cards.append(card);
+        }
+        const line = document.getElementById("line");
+        line.replaceChildren();
+        for (const play of view.plays) {
+          const stone = document.createElement("div");
+          stone.className = `stone${play.kind === "skipped" || play.ok === false ? " bad" : ""}`;
+          stone.innerHTML = `${play.number}<small>${view.players[play.player].name}${play.kind === "skipped" ? " · skipped" : ""}</small>`;
+          line.append(stone);
+        }
+        document.getElementById("foot").innerHTML = view.incidents.length
+          ? `incidents: <b>${view.incidents.length}</b>` : "no incidents";
+      };
+      const pull = async () => {
+        const response = await fetch(`/api/state${query}`, { cache: "no-store" });
+        if (response.ok) {
+          render(await response.json());
+        }
+      };
+      pull();
+      window.setInterval(pull, 2000);
+    </script>
+  </body>
+</html>

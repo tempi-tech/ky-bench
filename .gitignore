@@ -1,0 +1,4 @@
+.DS_Store
+matches/selftest.json
+matches/*.tmp
+matches/**/*.tmp
