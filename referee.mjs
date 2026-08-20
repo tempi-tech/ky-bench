@@ -128,6 +128,8 @@ const unplayedOf = (round) => {
   return Object.keys(round.numbers).filter((player) => !done.has(player));
 };
 
+const announceTotalOf = (match) => (match.discussion?.enabled ? playersOf(match).length : 0);
+
 const talkTotalOf = (match) => playersOf(match).length * (match.discussion?.cycles ?? 0);
 
 const talkTurnOf = ({ match, round }) => playersOf(match)[round.said.length % playersOf(match).length];
@@ -143,7 +145,10 @@ const phaseOf = ({ match, round }) => {
   if (players.some((player) => round.estimates[player] === undefined)) {
     return "estimate";
   }
-  if (match.discussion?.enabled && round.said.length < talkTotalOf(match)) {
+  if (match.discussion?.enabled && round.said.length < announceTotalOf(match)) {
+    return "announce";
+  }
+  if (match.discussion?.enabled && round.said.length < announceTotalOf(match) + talkTotalOf(match)) {
     return "discussion";
   }
   if (match.discussion?.enabled && players.some((player) => round.estimates2[player] === undefined)) {
@@ -166,6 +171,9 @@ const needOf = ({ match, player }) => {
   }
   if (phase === "estimate") {
     return round.estimates[player] === undefined ? "guess" : "waiting";
+  }
+  if (phase === "announce") {
+    return talkTurnOf({ match, round }) === player ? "announce" : "waiting";
   }
   if (phase === "discussion") {
     return talkTurnOf({ match, round }) === player ? "discuss" : "waiting";
@@ -277,8 +285,9 @@ const submitGuess = ({ match, player, pairs }) => {
 
 const submitSaid = ({ match, player }) => {
   const round = currentRoundOf(match);
-  if (phaseOf({ match, round }) !== "discussion") {
-    throw new Error("not in the discussion phase");
+  const phase = phaseOf({ match, round });
+  if (phase !== "announce" && phase !== "discussion") {
+    throw new Error("not in a talking phase");
   }
   if (talkTurnOf({ match, round }) !== player) {
     throw new Error(`not your turn to speak (turn=${talkTurnOf({ match, round })})`);
@@ -544,7 +553,11 @@ const runSelftest = () => {
   submitClue({ match: talky, player: "P2", text: "とても" });
   submitGuess({ match: talky, player: "P1", pairs: ["P2=70"] });
   submitGuess({ match: talky, player: "P2", pairs: ["P1=30"] });
-  assertEqual(phaseOf({ match: talky, round: talkRound }), "discussion", "discussion phase");
+  assertEqual(phaseOf({ match: talky, round: talkRound }), "announce", "announce phase");
+  assertEqual(needOf({ match: talky, player: "P1" }), "announce", "P1 announces first");
+  submitSaid({ match: talky, player: "P1" });
+  submitSaid({ match: talky, player: "P2" });
+  assertEqual(phaseOf({ match: talky, round: talkRound }), "discussion", "discussion after announce");
   assertEqual(needOf({ match: talky, player: "P1" }), "discuss", "P1 speaks first");
   submitSaid({ match: talky, player: "P1" });
   submitSaid({ match: talky, player: "P2" });
