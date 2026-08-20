@@ -1,0 +1,709 @@
+{
+  "summary": {
+    "game": "g002",
+    "kind": "one-round-discussion-6p",
+    "blind": true,
+    "seats": {
+      "P1": "gpt-5.6-sol · medium",
+      "P2": "claude-opus-5 · medium",
+      "P3": "grok-4.6 · medium",
+      "P4": "claude-fable-5 · medium",
+      "P5": "kmodel_latest · high",
+      "P6": "gemini-3.7-flash"
+    },
+    "theme": "面白い漫画(実在の作品名で答える)",
+    "mistakes": 0,
+    "perfectRounds": 1,
+    "roundsPlayed": 1,
+    "metrics": {
+      "P1": {
+        "legibility": 0.8260000000000001,
+        "decoding": 0.5680000000000001,
+        "discussionGain": {
+          "decoding": 1.4000000000000004,
+          "legibility": -2
+        },
+        "inconsistentPlays": 0
+      },
+      "P2": {
+        "legibility": 0.41200000000000003,
+        "decoding": 0.6940000000000001,
+        "discussionGain": {
+          "decoding": -3.1999999999999993,
+          "legibility": -1.2000000000000028
+        },
+        "inconsistentPlays": 1
+      },
+      "P3": {
+        "legibility": 0.808,
+        "decoding": 0.67,
+        "discussionGain": {
+          "decoding": 1.4000000000000004,
+          "legibility": -2.6000000000000005
+        },
+        "inconsistentPlays": 0
+      },
+      "P4": {
+        "legibility": 0.556,
+        "decoding": 0.7,
+        "discussionGain": {
+          "decoding": -1,
+          "legibility": 1.1999999999999993
+        },
+        "inconsistentPlays": 0
+      },
+      "P5": {
+        "legibility": 0.682,
+        "decoding": 0.712,
+        "discussionGain": {
+          "decoding": 0.40000000000000036,
+          "legibility": -2
+        },
+        "inconsistentPlays": 0
+      },
+      "P6": {
+        "legibility": 0.6100000000000001,
+        "decoding": 0.55,
+        "discussionGain": {
+          "decoding": -8.2,
+          "legibility": -2.5999999999999996
+        },
+        "inconsistentPlays": 0
+      }
+    },
+    "tokens": {
+      "P2": {
+        "output": 2506,
+        "apiCalls": 21
+      },
+      "P4": {
+        "output": 2730,
+        "apiCalls": 18
+      }
+    },
+    "notes": [
+      "Clues were real manga titles (constraint embedded in the theme text).",
+      "The agreed order P6-P2-P5-P3-P1-P4 was wrong at the head: P2 (Sazae-san, 7) was below P6 (Kobo-chan, 27). In the play phase P2 deviated from the consensus and led with 7 - a perfect round saved by trusting one's own number over the agreement.",
+      "First game with the hold-gated theme header and result-only closing post (no mid-game phase headers, no seat-reveal post)."
+    ]
+  },
+  "seats": {
+    "P1": {
+      "agentType": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "medium"
+    },
+    "P2": {
+      "agentType": "claude",
+      "model": "claude-opus-5",
+      "effort": "medium"
+    },
+    "P3": {
+      "agentType": "grok",
+      "model": "grok-4.6",
+      "effort": "medium"
+    },
+    "P4": {
+      "agentType": "claude",
+      "model": "claude-fable-5",
+      "effort": "medium"
+    },
+    "P5": {
+      "agentType": "qoder",
+      "model": "kmodel_latest",
+      "effort": "high",
+      "note": "qoder has no medium tier; middle tier of low/high/max used"
+    },
+    "P6": {
+      "agentType": "antigravity",
+      "model": "gemini-3.7-flash",
+      "effort": null,
+      "note": "model does not expose reasoning effort"
+    }
+  },
+  "blind": true,
+  "report": {
+    "mistakes": 0,
+    "perfectRounds": 1,
+    "roundsPlayed": 1,
+    "decoding": {
+      "P1": {
+        "samples": 5,
+        "mae": 14.4,
+        "bias": 12.4,
+        "skill": 0.5680000000000001
+      },
+      "P2": {
+        "samples": 5,
+        "mae": 10.2,
+        "bias": 1.4,
+        "skill": 0.6940000000000001
+      },
+      "P3": {
+        "samples": 5,
+        "mae": 11,
+        "bias": 7.4,
+        "skill": 0.67
+      },
+      "P4": {
+        "samples": 5,
+        "mae": 10,
+        "bias": -5.6,
+        "skill": 0.7
+      },
+      "P5": {
+        "samples": 5,
+        "mae": 9.6,
+        "bias": 2.8,
+        "skill": 0.712
+      },
+      "P6": {
+        "samples": 5,
+        "mae": 15,
+        "bias": 15,
+        "skill": 0.55
+      }
+    },
+    "legibility": {
+      "P1": {
+        "samples": 5,
+        "mae": 5.8,
+        "bias": -0.6,
+        "skill": 0.8260000000000001
+      },
+      "P2": {
+        "samples": 5,
+        "mae": 19.6,
+        "bias": 19.6,
+        "skill": 0.41200000000000003
+      },
+      "P3": {
+        "samples": 5,
+        "mae": 6.4,
+        "bias": 2,
+        "skill": 0.808
+      },
+      "P4": {
+        "samples": 5,
+        "mae": 14.8,
+        "bias": 14.8,
+        "skill": 0.556
+      },
+      "P5": {
+        "samples": 5,
+        "mae": 10.6,
+        "bias": 10.6,
+        "skill": 0.682
+      },
+      "P6": {
+        "samples": 5,
+        "mae": 13,
+        "bias": -13,
+        "skill": 0.6100000000000001
+      }
+    },
+    "discussionGain": {
+      "P1": {
+        "decoding": 1.4000000000000004,
+        "legibility": -2
+      },
+      "P2": {
+        "decoding": -3.1999999999999993,
+        "legibility": -1.2000000000000028
+      },
+      "P3": {
+        "decoding": 1.4000000000000004,
+        "legibility": -2.6000000000000005
+      },
+      "P4": {
+        "decoding": -1,
+        "legibility": 1.1999999999999993
+      },
+      "P5": {
+        "decoding": 0.40000000000000036,
+        "legibility": -2
+      },
+      "P6": {
+        "decoding": -8.2,
+        "legibility": -2.5999999999999996
+      }
+    },
+    "consistency": {
+      "P1": {
+        "inconsistentPlays": 0
+      },
+      "P2": {
+        "inconsistentPlays": 1
+      },
+      "P3": {
+        "inconsistentPlays": 0
+      },
+      "P4": {
+        "inconsistentPlays": 0
+      },
+      "P5": {
+        "inconsistentPlays": 0
+      },
+      "P6": {
+        "inconsistentPlays": 0
+      }
+    },
+    "incidents": []
+  },
+  "talk": {
+    "room": "talk_9d348def",
+    "messages": [
+      {
+        "seq": 1,
+        "from": null,
+        "text": "【開幕】Same Scale #g002 — 協力型の数字ゲームです。6人のプレイヤーがそれぞれ1〜100の秘密の数字を持ち、お題に沿ったヒントの強弱だけで互いの数字を読み合い、全員で小さい順にカードを出し切ることを目指します。今回のヒントは実在の漫画タイトル。各席の正体(モデル)は終局まで完全ブラインドです。"
+      },
+      {
+        "seq": 2,
+        "from": null,
+        "text": "【お題発表】今回のお題は「面白い漫画(実在の作品名で答える)」。全員のヒント提出と初回見積もりが完了しました。ここから一人ずつ、自分のヒントを発表してもらいます(P1→P6)。数字は禁止です。"
+      },
+      {
+        "seq": 3,
+        "from": "P1",
+        "text": "P1です。私のヒントは『斉木楠雄のΨ難』です。"
+      },
+      {
+        "seq": 4,
+        "from": "P2",
+        "text": "P2です。私のヒントは『サザエさん』。爆笑というより、ほのぼの和むタイプです。"
+      },
+      {
+        "seq": 5,
+        "from": "P3",
+        "text": "P3です。私のヒントは『月刊少女野崎くん』。恋愛ものだけど、笑いのキレはかなりあると思います。"
+      },
+      {
+        "seq": 6,
+        "from": "P4",
+        "text": "P4です。私のヒントは『銀魂』。ギャグの手数なら負けない自信があります。"
+      },
+      {
+        "seq": 7,
+        "from": "P5",
+        "text": "P5です。私のヒントは『あたしンち』。ほのぼのしててクスッと笑える、毎日のお供って感じです。"
+      },
+      {
+        "seq": 8,
+        "from": "P6",
+        "text": "P6です。私のヒントは『コボちゃん』です。新聞の4コマ漫画でほのぼの楽しめます。"
+      },
+      {
+        "seq": 9,
+        "from": "P1",
+        "text": "私より上は『銀魂』、近い下に『月刊少女野崎くん』、続いて『あたしンち』『サザエさん』『コボちゃん』の順に感じます。"
+      },
+      {
+        "seq": 10,
+        "from": "P2",
+        "text": "P2です。私はかなり低め。『コボちゃん』の方が私より少し下かなと感じますが、僅差なので慎重に。『あたしンち』は私より上、そこから『野崎くん』『斉木』『銀魂』の順で上がると見ています。"
+      },
+      {
+        "seq": 11,
+        "from": "P3",
+        "text": "P3です。私より明らかに上は『銀魂』と『斉木楠雄のΨ難』で、私は『斉木』のすぐ下くらい。下は『あたしンち』『サザエさん』『コボちゃん』の順に見えます。"
+      },
+      {
+        "seq": 12,
+        "from": "P4",
+        "text": "P4です。皆さんの読み通り、私は『斉木楠雄のΨ難』より上で、この中では一番高い側だと思います。ただ最高クラスというほどではないので、最後は私が出ます。"
+      },
+      {
+        "seq": 13,
+        "from": null,
+        "text": "【相談タイム】全員のヒントが出揃いました。ここから2巡の相談です。誰が高くて誰が低いか、数字を使わずに読み合ってください。"
+      },
+      {
+        "seq": 14,
+        "from": "P5",
+        "text": "P5です。私は『サザエさん』『コボちゃん』より上、『野崎くん』より下だと感じます。順番はコボちゃん→サザエさん→あたしンち→野崎くん→斉木→銀魂で一致しそうですね。"
+      },
+      {
+        "seq": 15,
+        "from": "P6",
+        "text": "P6です。私は『あたしンち』より下で、全体でもかなり低めです。『サザエさん』とは非常に近い位置にいますが、低めグループとして意識しています。"
+      },
+      {
+        "seq": 16,
+        "from": "P1",
+        "text": "皆さんの見立ても近そうです。『月刊少女野崎くん』と私は僅差、その後に『銀魂』でよさそうです。"
+      },
+      {
+        "seq": 17,
+        "from": "P2",
+        "text": "P2です。順番はコボちゃん→サザエさん→あたしンち→野崎くん→斉木→銀魂で合意でよさそうです。私とコボちゃんは本当に僅差なので、最初の一手はP6に譲り、私は二番手で出ます。"
+      },
+      {
+        "seq": 18,
+        "from": "P3",
+        "text": "P3です。順番の合意に賛成です。あたしンちの次、斉木の前で出します。斉木とは近いですが、私は一段下だと感じます。"
+      },
+      {
+        "seq": 19,
+        "from": "P4",
+        "text": "P4です。合意の順(コボちゃん→サザエさん→あたしンち→野崎くん→斉木→銀魂)で異論なし。私は全員出た後に最後に出します。"
+      },
+      {
+        "seq": 20,
+        "from": "P5",
+        "text": "P5です。合意の順に賛成です。私はサザエさんの次、野崎くんの前に出します。迷ったら周りに合わせます。"
+      },
+      {
+        "seq": 21,
+        "from": "P6",
+        "text": "P6です。合意順（コボちゃん→サザエさん→あたしンち→野崎くん→斉木→銀魂）に賛成です。最初の一手は私から出します。"
+      }
+    ]
+  },
+  "id": "g002",
+  "title": "6 players · 1 round",
+  "createdAt": "2026-08-20T08:36:39.602Z",
+  "updatedAt": "2026-08-20T08:46:26.638Z",
+  "status": "over",
+  "playerCount": 6,
+  "totalRounds": 1,
+  "themes": [
+    "面白い漫画(実在の作品名で答える)"
+  ],
+  "players": {
+    "P1": {
+      "name": "Player 1"
+    },
+    "P2": {
+      "name": "Player 2"
+    },
+    "P3": {
+      "name": "Player 3"
+    },
+    "P4": {
+      "name": "Player 4"
+    },
+    "P5": {
+      "name": "Player 5"
+    },
+    "P6": {
+      "name": "Player 6"
+    }
+  },
+  "discussion": {
+    "enabled": true,
+    "room": "talk_9d348def",
+    "cycles": 2
+  },
+  "incidents": [],
+  "rounds": [
+    {
+      "index": 1,
+      "theme": "面白い漫画(実在の作品名で答える)",
+      "numbers": {
+        "P1": 73,
+        "P2": 7,
+        "P3": 59,
+        "P4": 75,
+        "P5": 32,
+        "P6": 27
+      },
+      "clues": {
+        "P2": "サザエさん",
+        "P1": "斉木楠雄のΨ難",
+        "P4": "銀魂",
+        "P6": "コボちゃん",
+        "P5": "あたしンち",
+        "P3": "月刊少女野崎くん"
+      },
+      "estimates": {
+        "P2": {
+          "P1": 72,
+          "P3": 55,
+          "P4": 88,
+          "P5": 30,
+          "P6": 12
+        },
+        "P6": {
+          "P1": 78,
+          "P2": 12,
+          "P3": 60,
+          "P4": 92,
+          "P5": 38
+        },
+        "P1": {
+          "P2": 35,
+          "P3": 68,
+          "P4": 92,
+          "P5": 52,
+          "P6": 22
+        },
+        "P4": {
+          "P1": 65,
+          "P2": 25,
+          "P3": 55,
+          "P5": 35,
+          "P6": 15
+        },
+        "P3": {
+          "P1": 76,
+          "P2": 33,
+          "P4": 91,
+          "P5": 44,
+          "P6": 22
+        },
+        "P5": {
+          "P1": 75,
+          "P2": 22,
+          "P3": 58,
+          "P4": 92,
+          "P6": 12
+        }
+      },
+      "estimates2": {
+        "P6": {
+          "P1": 80,
+          "P2": 35,
+          "P3": 65,
+          "P4": 93,
+          "P5": 48
+        },
+        "P1": {
+          "P2": 32,
+          "P3": 68,
+          "P4": 90,
+          "P5": 50,
+          "P6": 22
+        },
+        "P4": {
+          "P1": 60,
+          "P2": 15,
+          "P3": 50,
+          "P5": 35,
+          "P6": 10
+        },
+        "P5": {
+          "P1": 74,
+          "P2": 20,
+          "P3": 57,
+          "P4": 92,
+          "P6": 12
+        },
+        "P3": {
+          "P1": 70,
+          "P2": 31,
+          "P4": 84,
+          "P5": 45,
+          "P6": 21
+        },
+        "P2": {
+          "P1": 78,
+          "P3": 65,
+          "P4": 90,
+          "P5": 35,
+          "P6": 5
+        }
+      },
+      "said": [
+        {
+          "player": "P1",
+          "at": "2026-08-20T08:39:36.305Z"
+        },
+        {
+          "player": "P2",
+          "at": "2026-08-20T08:39:39.024Z"
+        },
+        {
+          "player": "P3",
+          "at": "2026-08-20T08:39:50.472Z"
+        },
+        {
+          "player": "P4",
+          "at": "2026-08-20T08:39:57.445Z"
+        },
+        {
+          "player": "P5",
+          "at": "2026-08-20T08:40:13.517Z"
+        },
+        {
+          "player": "P6",
+          "at": "2026-08-20T08:40:22.676Z"
+        },
+        {
+          "player": "P1",
+          "at": "2026-08-20T08:40:33.876Z"
+        },
+        {
+          "player": "P2",
+          "at": "2026-08-20T08:40:39.399Z"
+        },
+        {
+          "player": "P3",
+          "at": "2026-08-20T08:41:07.263Z"
+        },
+        {
+          "player": "P4",
+          "at": "2026-08-20T08:41:22.692Z"
+        },
+        {
+          "player": "P5",
+          "at": "2026-08-20T08:41:45.542Z"
+        },
+        {
+          "player": "P6",
+          "at": "2026-08-20T08:41:54.666Z"
+        },
+        {
+          "player": "P1",
+          "at": "2026-08-20T08:42:01.520Z"
+        },
+        {
+          "player": "P2",
+          "at": "2026-08-20T08:42:08.016Z"
+        },
+        {
+          "player": "P3",
+          "at": "2026-08-20T08:42:36.334Z"
+        },
+        {
+          "player": "P4",
+          "at": "2026-08-20T08:42:52.385Z"
+        },
+        {
+          "player": "P5",
+          "at": "2026-08-20T08:43:21.667Z"
+        },
+        {
+          "player": "P6",
+          "at": "2026-08-20T08:44:11.897Z"
+        }
+      ],
+      "open": true,
+      "turn": null,
+      "passStreak": 0,
+      "passForbidden": false,
+      "plays": [
+        {
+          "player": "P2",
+          "number": 7,
+          "kind": "played",
+          "ok": true,
+          "at": "2026-08-20T08:44:47.117Z"
+        },
+        {
+          "player": "P6",
+          "number": 27,
+          "kind": "played",
+          "ok": true,
+          "at": "2026-08-20T08:45:29.142Z"
+        },
+        {
+          "player": "P5",
+          "number": 32,
+          "kind": "played",
+          "ok": true,
+          "at": "2026-08-20T08:46:06.262Z"
+        },
+        {
+          "player": "P3",
+          "number": 59,
+          "kind": "played",
+          "ok": true,
+          "at": "2026-08-20T08:46:14.150Z"
+        },
+        {
+          "player": "P1",
+          "number": 73,
+          "kind": "played",
+          "ok": true,
+          "at": "2026-08-20T08:46:21.114Z"
+        },
+        {
+          "player": "P4",
+          "number": 75,
+          "kind": "played",
+          "ok": true,
+          "at": "2026-08-20T08:46:26.638Z"
+        }
+      ],
+      "actions": [
+        {
+          "player": "P1",
+          "action": "pass",
+          "at": "2026-08-20T08:44:40.254Z"
+        },
+        {
+          "player": "P2",
+          "action": "play",
+          "at": "2026-08-20T08:44:47.116Z"
+        },
+        {
+          "player": "P3",
+          "action": "pass",
+          "at": "2026-08-20T08:44:55.391Z"
+        },
+        {
+          "player": "P4",
+          "action": "pass",
+          "at": "2026-08-20T08:45:00.491Z"
+        },
+        {
+          "player": "P5",
+          "action": "pass",
+          "at": "2026-08-20T08:45:26.244Z"
+        },
+        {
+          "player": "P6",
+          "action": "play",
+          "at": "2026-08-20T08:45:29.141Z"
+        },
+        {
+          "player": "P1",
+          "action": "pass",
+          "at": "2026-08-20T08:45:33.490Z"
+        },
+        {
+          "player": "P3",
+          "action": "pass",
+          "at": "2026-08-20T08:45:42.992Z"
+        },
+        {
+          "player": "P4",
+          "action": "pass",
+          "at": "2026-08-20T08:45:47.143Z"
+        },
+        {
+          "player": "P5",
+          "action": "play",
+          "at": "2026-08-20T08:46:06.261Z"
+        },
+        {
+          "player": "P1",
+          "action": "pass",
+          "at": "2026-08-20T08:46:09.385Z"
+        },
+        {
+          "player": "P3",
+          "action": "play",
+          "at": "2026-08-20T08:46:14.150Z"
+        },
+        {
+          "player": "P4",
+          "action": "pass",
+          "at": "2026-08-20T08:46:18.253Z"
+        },
+        {
+          "player": "P1",
+          "action": "play",
+          "at": "2026-08-20T08:46:21.114Z"
+        },
+        {
+          "player": "P4",
+          "action": "play",
+          "at": "2026-08-20T08:46:26.637Z"
+        }
+      ],
+      "mistakes": 0
+    }
+  ]
+}
