@@ -64,15 +64,18 @@ const newRound = ({ index, theme, players }) => {
     numbers: Object.fromEntries(players.map((player, at) => [player, numbers[at]])),
     clues: {},
     estimates: {},
+    estimates2: {},
+    said: [],
     turn: players[(index - 1) % players.length],
     passStreak: 0,
     passForbidden: false,
     plays: [],
+    actions: [],
     mistakes: 0,
   };
 };
 
-const createMatch = ({ id, playerCount, rounds, themes }) => {
+const createMatch = ({ id, playerCount, rounds, themes, discussion }) => {
   if (!Number.isInteger(playerCount) || playerCount < 2 || playerCount > 6) {
     throw new Error("players must be an integer from 2 to 6");
   }
@@ -90,6 +93,7 @@ const createMatch = ({ id, playerCount, rounds, themes }) => {
     totalRounds: rounds,
     themes,
     players: Object.fromEntries(players.map((player, index) => [player, { name: `Player ${index + 1}` }])),
+    discussion,
     incidents: [],
     rounds: [newRound({ index: 1, theme: themes[0], players })],
   };
@@ -124,6 +128,10 @@ const unplayedOf = (round) => {
   return Object.keys(round.numbers).filter((player) => !done.has(player));
 };
 
+const talkTotalOf = (match) => playersOf(match).length * (match.discussion?.cycles ?? 0);
+
+const talkTurnOf = ({ match, round }) => playersOf(match)[round.said.length % playersOf(match).length];
+
 const phaseOf = ({ match, round }) => {
   const players = playersOf(match);
   if (match.status === "over") {
@@ -134,6 +142,12 @@ const phaseOf = ({ match, round }) => {
   }
   if (players.some((player) => round.estimates[player] === undefined)) {
     return "estimate";
+  }
+  if (match.discussion?.enabled && round.said.length < talkTotalOf(match)) {
+    return "discussion";
+  }
+  if (match.discussion?.enabled && players.some((player) => round.estimates2[player] === undefined)) {
+    return "estimate2";
   }
   if (unplayedOf(round).length > 0) {
     return "order";
@@ -152,6 +166,12 @@ const needOf = ({ match, player }) => {
   }
   if (phase === "estimate") {
     return round.estimates[player] === undefined ? "guess" : "waiting";
+  }
+  if (phase === "discussion") {
+    return talkTurnOf({ match, round }) === player ? "discuss" : "waiting";
+  }
+  if (phase === "estimate2") {
+    return round.estimates2[player] === undefined ? "guess" : "waiting";
   }
   if (phase === "order") {
     return round.turn === player ? "turn" : "waiting";
@@ -173,6 +193,7 @@ const playerViewOf = ({ match, player }) => {
     others: playersOf(match).filter((other) => other !== player),
     clues: round.clues,
     plays: round.plays,
+    room: match.discussion?.enabled ? match.discussion.room : undefined,
     mustPlay: need === "turn" && round.passForbidden,
     mistakes: match.rounds.reduce((sum, entry) => sum + entry.mistakes, 0),
   };
@@ -225,10 +246,12 @@ const submitClue = ({ match, player, text }) => {
 
 const submitGuess = ({ match, player, pairs }) => {
   const round = currentRoundOf(match);
-  if (phaseOf({ match, round }) !== "estimate") {
-    throw new Error("not in the estimate phase");
+  const phase = phaseOf({ match, round });
+  if (phase !== "estimate" && phase !== "estimate2") {
+    throw new Error("not in an estimate phase");
   }
-  if (round.estimates[player] !== undefined) {
+  const target = phase === "estimate" ? round.estimates : round.estimates2;
+  if (target[player] !== undefined) {
     throw new Error("estimates already submitted");
   }
   const others = playersOf(match).filter((other) => other !== player);
@@ -248,7 +271,19 @@ const submitGuess = ({ match, player, pairs }) => {
   if (Object.keys(parsed).length !== others.length) {
     throw new Error(`estimate exactly: ${others.join(", ")}`);
   }
-  round.estimates[player] = parsed;
+  target[player] = parsed;
+  return match;
+};
+
+const submitSaid = ({ match, player }) => {
+  const round = currentRoundOf(match);
+  if (phaseOf({ match, round }) !== "discussion") {
+    throw new Error("not in the discussion phase");
+  }
+  if (talkTurnOf({ match, round }) !== player) {
+    throw new Error(`not your turn to speak (turn=${talkTurnOf({ match, round })})`);
+  }
+  round.said.push({ player, at: nowIso() });
   return match;
 };
 
@@ -356,12 +391,29 @@ const reportOf = (match) => {
     const bias = samples.length ? samples.reduce((sum, value) => sum + value, 0) / samples.length : null;
     return [player, { samples: samples.length, mae, bias, skill: mae === null ? null : 1 - mae / randomBaselineError }];
   }));
-  const decoding = errorsBy(({ round, player, other }) => (
-    round.estimates[player]?.[other] === undefined ? null : round.estimates[player][other] - round.numbers[other]
+  const estimatesOf = (round) => (
+    Object.keys(round.estimates2 ?? {}).length === players.length ? round.estimates2 : round.estimates
+  );
+  const decodingBy = (source) => errorsBy(({ round, player, other }) => (
+    source(round)[player]?.[other] === undefined ? null : source(round)[player][other] - round.numbers[other]
   ));
-  const legibility = errorsBy(({ round, player, other }) => (
-    round.estimates[other]?.[player] === undefined ? null : round.estimates[other][player] - round.numbers[player]
+  const legibilityBy = (source) => errorsBy(({ round, player, other }) => (
+    source(round)[other]?.[player] === undefined ? null : source(round)[other][player] - round.numbers[player]
   ));
+  const decoding = decodingBy(estimatesOf);
+  const legibility = legibilityBy(estimatesOf);
+  const discussionGain = match.discussion?.enabled
+    ? Object.fromEntries(players.map((player) => {
+      const pre = decodingBy((round) => round.estimates)[player];
+      const post = decodingBy((round) => round.estimates2 ?? {})[player];
+      const preLeg = legibilityBy((round) => round.estimates)[player];
+      const postLeg = legibilityBy((round) => round.estimates2 ?? {})[player];
+      return [player, {
+        decoding: pre.mae === null || post.mae === null ? null : pre.mae - post.mae,
+        legibility: preLeg.mae === null || postLeg.mae === null ? null : preLeg.mae - postLeg.mae,
+      }];
+    }))
+    : null;
   const inconsistentEventsOf = (round) => {
     const events = round.plays.reduce((acc, entry) => {
       if (entry.kind === "skipped") {
@@ -374,7 +426,7 @@ const reportOf = (match) => {
     }, { list: [], open: Object.keys(round.numbers), buffer: [] });
     return events.list.filter(({ player, unplayedBefore }) => {
       const own = round.numbers[player];
-      const estimates = round.estimates[player] ?? {};
+      const estimates = estimatesOf(round)[player] ?? {};
       return unplayedBefore
         .filter((other) => other !== player)
         .some((other) => estimates[other] !== undefined && estimates[other] < own);
@@ -391,6 +443,7 @@ const reportOf = (match) => {
     roundsPlayed: match.rounds.length,
     decoding,
     legibility,
+    discussionGain,
     consistency,
     incidents: match.incidents,
   };
@@ -478,12 +531,39 @@ const runSelftest = () => {
   const report = reportOf(finished);
   assertEqual(report.mistakes, 1, "report mistakes");
   assertEqual(report.decoding.P2.samples, 2, "decode samples");
+  const talky = createMatch({
+    id: "selftest",
+    playerCount: 2,
+    rounds: 1,
+    themes: ["テスト"],
+    discussion: { enabled: true, room: "talk_test", cycles: 1 },
+  });
+  const talkRound = currentRoundOf(talky);
+  talkRound.numbers = { P1: 10, P2: 90 };
+  submitClue({ match: talky, player: "P1", text: "すこし" });
+  submitClue({ match: talky, player: "P2", text: "とても" });
+  submitGuess({ match: talky, player: "P1", pairs: ["P2=70"] });
+  submitGuess({ match: talky, player: "P2", pairs: ["P1=30"] });
+  assertEqual(phaseOf({ match: talky, round: talkRound }), "discussion", "discussion phase");
+  assertEqual(needOf({ match: talky, player: "P1" }), "discuss", "P1 speaks first");
+  submitSaid({ match: talky, player: "P1" });
+  submitSaid({ match: talky, player: "P2" });
+  assertEqual(phaseOf({ match: talky, round: talkRound }), "estimate2", "estimate2 after talk");
+  submitGuess({ match: talky, player: "P1", pairs: ["P2=88"] });
+  submitGuess({ match: talky, player: "P2", pairs: ["P1=12"] });
+  assertEqual(phaseOf({ match: talky, round: talkRound }), "order", "order after estimate2");
+  submitTurn({ match: talky, player: "P1", action: "play" });
+  const talkyDone = submitTurn({ match: talky, player: "P2", action: "play" });
+  const talkyReport = reportOf(talkyDone);
+  assertEqual(talkyReport.discussionGain.P1.decoding, 18, "discussion gain");
   process.stdout.write("selftest ok\n");
 };
 
 const helpText = `referee — cooperative number-ordering bench
 
   node referee.mjs new [--players 3] [--rounds 3] [--themes a,b,c] [--id current]
+                       [--discussion [--room talk_xxx] [--cycles 2]]
+  node referee.mjs said --as P1 [--id current]
   node referee.mjs state [--id current] [--json]
   node referee.mjs wait --as P1 [--timeout 120] [--id current]
   node referee.mjs clue <text...> --as P1 [--id current]
@@ -519,7 +599,14 @@ try {
     const themes = typeof flags.themes === "string"
       ? flags.themes.split(",").map((theme) => theme.trim()).filter(Boolean)
       : defaultThemes;
-    const match = writeMatch(createMatch({ id: matchId, playerCount, rounds, themes }));
+    const discussion = flags.discussion
+      ? {
+        enabled: true,
+        room: typeof flags.room === "string" ? flags.room : null,
+        cycles: flags.cycles === undefined ? 2 : Number(flags.cycles),
+      }
+      : { enabled: false };
+    const match = writeMatch(createMatch({ id: matchId, playerCount, rounds, themes, discussion }));
     emit({ ok: true, data: spectatorViewOf({ match, full: false }) });
     process.exit(0);
   }
@@ -540,7 +627,7 @@ try {
       emit(payload);
       process.exit(payload.ok ? 0 : 1);
     });
-  } else if (command === "clue" || command === "guess" || command === "play" || command === "pass") {
+  } else if (command === "clue" || command === "guess" || command === "play" || command === "pass" || command === "said") {
     if (!asPlayer) {
       fail(`usage: referee ${command} ... --as P1`);
     }
@@ -552,7 +639,9 @@ try {
       ? submitClue({ match, player: asPlayer, text: rest.join(" ") })
       : command === "guess"
         ? submitGuess({ match, player: asPlayer, pairs: rest })
-        : submitTurn({ match, player: asPlayer, action: command });
+        : command === "said"
+          ? submitSaid({ match, player: asPlayer })
+          : submitTurn({ match, player: asPlayer, action: command });
     writeMatch(next);
     emit({ ok: true, data: playerViewOf({ match: readMatch(matchId), player: asPlayer }) });
     process.exit(0);
