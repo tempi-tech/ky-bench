@@ -15,9 +15,11 @@ See [METHOD.md](METHOD.md) for definitions.
 ## Quick start
 
 ```bash
-node referee.mjs new --players 3 --rounds 3 --themes "怖いもの,重いもの,もらって嬉しいもの"
+node referee.mjs new --players 3 --themes "怖いもの"
 node referee.mjs serve --port 8768        # spectator page: http://127.0.0.1:8768
 ```
+
+One round = one game is the default: fresh agents and a fresh theme per game keep every data point independent (see [METHOD.md](METHOD.md)).
 
 Launch one agent per player and hand each `prompts/player.md` plus its player id. Each player then loops on its own:
 
@@ -31,11 +33,13 @@ Launch one agent per player and hand each `prompts/player.md` plus its player id
 ## CLI
 
 ```
-node referee.mjs new [--players 3] [--rounds 3] [--themes a,b,c] [--id current]
+node referee.mjs new [--players 3] [--rounds 1] [--themes a,b,c] [--id current]
+                     [--discussion [--room talk_xxx] [--cycles 2]]
 node referee.mjs state [--id current]
 node referee.mjs wait --as P1 [--timeout 120]
 node referee.mjs clue <text...> --as P1
 node referee.mjs guess P2=40 P3=75 --as P1
+node referee.mjs said --as P1
 node referee.mjs play | pass --as P1
 node referee.mjs report [--id current]
 node referee.mjs serve [--port 8768] [--key token]

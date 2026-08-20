@@ -85,7 +85,7 @@ const createMatch = ({ id, playerCount, rounds, themes, discussion }) => {
   const players = playerIdsOf(playerCount);
   return {
     id,
-    title: `${playerCount} players · ${rounds} rounds`,
+    title: `${playerCount} players · ${rounds} ${rounds === 1 ? "round" : "rounds"}`,
     createdAt: nowIso(),
     updatedAt: nowIso(),
     status: "playing",
@@ -561,7 +561,7 @@ const runSelftest = () => {
 
 const helpText = `referee — cooperative number-ordering bench
 
-  node referee.mjs new [--players 3] [--rounds 3] [--themes a,b,c] [--id current]
+  node referee.mjs new [--players 3] [--rounds 1] [--themes a,b,c] [--id current]
                        [--discussion [--room talk_xxx] [--cycles 2]]
   node referee.mjs said --as P1 [--id current]
   node referee.mjs state [--id current] [--json]
@@ -595,7 +595,7 @@ try {
   }
   if (command === "new") {
     const playerCount = flags.players === undefined ? 3 : Number(flags.players);
-    const rounds = flags.rounds === undefined ? 3 : Number(flags.rounds);
+    const rounds = flags.rounds === undefined ? 1 : Number(flags.rounds);
     const themes = typeof flags.themes === "string"
       ? flags.themes.split(",").map((theme) => theme.trim()).filter(Boolean)
       : defaultThemes;
