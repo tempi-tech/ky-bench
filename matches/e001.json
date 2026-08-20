@@ -1,0 +1,315 @@
+{
+  "summary": {
+    "game": "e001",
+    "kind": "experiment",
+    "blind": true,
+    "seats": {
+      "P1": "claude-fable-5 · medium",
+      "P2": "claude-opus-5 · medium",
+      "P3": "claude-sonnet-5 · medium"
+    },
+    "mistakes": 3,
+    "perfectRounds": 1,
+    "roundsPlayed": 3,
+    "metrics": {
+      "P1": {
+        "legibility": 0.8,
+        "decoding": 0.785,
+        "bias": -5.3,
+        "inconsistentPlays": 1
+      },
+      "P2": {
+        "legibility": 0.65,
+        "decoding": 0.96,
+        "bias": 1.3,
+        "inconsistentPlays": 1
+      },
+      "P3": {
+        "legibility": 0.915,
+        "decoding": 0.62,
+        "bias": -0.5,
+        "inconsistentPlays": 0
+      }
+    },
+    "tokens": {
+      "P1": {
+        "output": 1847,
+        "cacheRead": 372609,
+        "apiCalls": 14
+      },
+      "P2": {
+        "output": 1675,
+        "cacheRead": 346193,
+        "apiCalls": 13
+      },
+      "P3": {
+        "output": 1814,
+        "cacheRead": 634060,
+        "apiCalls": 20
+      }
+    }
+  },
+  "seats": {
+    "P1": {
+      "agentType": "claude",
+      "model": "claude-fable-5",
+      "effort": "medium"
+    },
+    "P2": {
+      "agentType": "claude",
+      "model": "claude-opus-5",
+      "effort": "medium"
+    },
+    "P3": {
+      "agentType": "claude",
+      "model": "claude-sonnet-5",
+      "effort": "medium"
+    }
+  },
+  "blind": true,
+  "report": {
+    "mistakes": 3,
+    "perfectRounds": 1,
+    "roundsPlayed": 3,
+    "decoding": {
+      "P1": {
+        "samples": 6,
+        "mae": 7.166666666666667,
+        "bias": 1.8333333333333333,
+        "skill": 0.785
+      },
+      "P2": {
+        "samples": 6,
+        "mae": 1.3333333333333333,
+        "bias": -0.3333333333333333,
+        "skill": 0.96
+      },
+      "P3": {
+        "samples": 6,
+        "mae": 12.666666666666666,
+        "bias": -6,
+        "skill": 0.6200000000000001
+      }
+    },
+    "legibility": {
+      "P1": {
+        "samples": 6,
+        "mae": 6.666666666666667,
+        "bias": -5.333333333333333,
+        "skill": 0.8
+      },
+      "P2": {
+        "samples": 6,
+        "mae": 11.666666666666666,
+        "bias": 1.3333333333333333,
+        "skill": 0.65
+      },
+      "P3": {
+        "samples": 6,
+        "mae": 2.8333333333333335,
+        "bias": -0.5,
+        "skill": 0.915
+      }
+    },
+    "consistency": {
+      "P1": {
+        "inconsistentPlays": 1
+      },
+      "P2": {
+        "inconsistentPlays": 1
+      },
+      "P3": {
+        "inconsistentPlays": 0
+      }
+    },
+    "incidents": []
+  },
+  "id": "e001",
+  "title": "3 players · 3 rounds",
+  "createdAt": "2026-08-20T07:04:12.420Z",
+  "updatedAt": "2026-08-20T07:05:32.373Z",
+  "status": "over",
+  "playerCount": 3,
+  "totalRounds": 3,
+  "themes": [
+    "怖いもの",
+    "重いもの",
+    "もらって嬉しいもの"
+  ],
+  "players": {
+    "P1": {
+      "name": "Fable 5 · medium"
+    },
+    "P2": {
+      "name": "Opus 5 · medium"
+    },
+    "P3": {
+      "name": "Sonnet 5 · medium"
+    }
+  },
+  "incidents": [],
+  "rounds": [
+    {
+      "index": 1,
+      "theme": "怖いもの",
+      "numbers": {
+        "P1": 84,
+        "P2": 76,
+        "P3": 69
+      },
+      "clues": {
+        "P1": "深夜に一人でいるとき家の中から知らない人の足音が聞こえる",
+        "P2": "刃物を持った不審者",
+        "P3": "深夜の廃病院で聞こえる足音"
+      },
+      "estimates": {
+        "P3": {
+          "P1": 55,
+          "P2": 85
+        },
+        "P2": {
+          "P1": 85,
+          "P3": 68
+        },
+        "P1": {
+          "P2": 90,
+          "P3": 72
+        }
+      },
+      "turn": null,
+      "passStreak": 0,
+      "passForbidden": false,
+      "plays": [
+        {
+          "player": "P3",
+          "number": 69,
+          "kind": "skipped",
+          "at": "2026-08-20T07:04:40.972Z"
+        },
+        {
+          "player": "P2",
+          "number": 76,
+          "kind": "skipped",
+          "at": "2026-08-20T07:04:40.972Z"
+        },
+        {
+          "player": "P1",
+          "number": 84,
+          "kind": "played",
+          "ok": false,
+          "at": "2026-08-20T07:04:40.972Z"
+        }
+      ],
+      "mistakes": 2
+    },
+    {
+      "index": 2,
+      "theme": "重いもの",
+      "numbers": {
+        "P1": 99,
+        "P2": 88,
+        "P3": 73
+      },
+      "clues": {
+        "P2": "貨物を満載した長い列車",
+        "P3": "動かせないほど巨大な岩",
+        "P1": "地球そのもの"
+      },
+      "estimates": {
+        "P1": {
+          "P2": 80,
+          "P3": 65
+        },
+        "P2": {
+          "P1": 99,
+          "P3": 72
+        },
+        "P3": {
+          "P1": 95,
+          "P2": 65
+        }
+      },
+      "turn": null,
+      "passStreak": 0,
+      "passForbidden": false,
+      "plays": [
+        {
+          "player": "P3",
+          "number": 73,
+          "kind": "skipped",
+          "at": "2026-08-20T07:05:05.518Z"
+        },
+        {
+          "player": "P2",
+          "number": 88,
+          "kind": "played",
+          "ok": false,
+          "at": "2026-08-20T07:05:05.519Z"
+        },
+        {
+          "player": "P1",
+          "number": 99,
+          "kind": "played",
+          "ok": true,
+          "at": "2026-08-20T07:05:08.675Z"
+        }
+      ],
+      "mistakes": 1
+    },
+    {
+      "index": 3,
+      "theme": "もらって嬉しいもの",
+      "numbers": {
+        "P1": 7,
+        "P2": 37,
+        "P3": 95
+      },
+      "clues": {
+        "P3": "一生に一度あるかないかの大きな夢が叶うプレゼント",
+        "P2": "気の利いた入浴剤のセット",
+        "P1": "街頭で配られるポケットティッシュ"
+      },
+      "estimates": {
+        "P2": {
+          "P1": 4,
+          "P3": 97
+        },
+        "P3": {
+          "P1": 10,
+          "P2": 45
+        },
+        "P1": {
+          "P2": 45,
+          "P3": 97
+        }
+      },
+      "turn": null,
+      "passStreak": 0,
+      "passForbidden": false,
+      "plays": [
+        {
+          "player": "P1",
+          "number": 7,
+          "kind": "played",
+          "ok": true,
+          "at": "2026-08-20T07:05:27.784Z"
+        },
+        {
+          "player": "P2",
+          "number": 37,
+          "kind": "played",
+          "ok": true,
+          "at": "2026-08-20T07:05:29.890Z"
+        },
+        {
+          "player": "P3",
+          "number": 95,
+          "kind": "played",
+          "ok": true,
+          "at": "2026-08-20T07:05:32.372Z"
+        }
+      ],
+      "mistakes": 0
+    }
+  ]
+}
