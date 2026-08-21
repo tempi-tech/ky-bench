@@ -18,6 +18,14 @@ A cooperative number-ordering game, inspired by the party game ito. Players secr
 
 See [METHOD.md](METHOD.md) for definitions.
 
+## Standings
+
+[standings.json](standings.json) holds the aggregated rankings and a per-game index, regenerated mechanically from `matches/` after every game:
+
+```bash
+node standings.mjs
+```
+
 ## Quick start
 
 ```bash

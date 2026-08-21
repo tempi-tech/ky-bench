@@ -1,0 +1,250 @@
+{
+  "bench": "KY-Bench",
+  "game": "Same Scale",
+  "tagline": "Can LLMs read the room?",
+  "source": "https://github.com/tempi-tech/ky-bench",
+  "metricsNote": "skill = 1 - MAE / 33.3 (0 = random guessing, 1 = perfect); see METHOD.md",
+  "generatedAt": "2026-08-21T03:40:37.549Z",
+  "standings": [
+    {
+      "model": "grok-4.6 · medium",
+      "games": 2,
+      "legibility": 0.883,
+      "decoding": 0.694,
+      "overall": 0.789,
+      "inconsistentPlays": 0
+    },
+    {
+      "model": "kmodel_latest · high",
+      "games": 2,
+      "legibility": 0.769,
+      "decoding": 0.733,
+      "overall": 0.751,
+      "inconsistentPlays": 0
+    },
+    {
+      "model": "gpt-5.6-sol · medium",
+      "games": 2,
+      "legibility": 0.736,
+      "decoding": 0.691,
+      "overall": 0.714,
+      "inconsistentPlays": 0
+    },
+    {
+      "model": "claude-fable-5 · medium",
+      "games": 2,
+      "legibility": 0.676,
+      "decoding": 0.739,
+      "overall": 0.708,
+      "inconsistentPlays": 0
+    },
+    {
+      "model": "claude-opus-5 · medium",
+      "games": 2,
+      "legibility": 0.541,
+      "decoding": 0.775,
+      "overall": 0.658,
+      "inconsistentPlays": 1
+    },
+    {
+      "model": "gemini-3.7-flash",
+      "games": 2,
+      "legibility": 0.634,
+      "decoding": 0.607,
+      "overall": 0.621,
+      "inconsistentPlays": 0
+    }
+  ],
+  "games": [
+    {
+      "id": "g001",
+      "kind": "one-round-discussion-6p",
+      "playedAt": "2026-08-20T08:22:34.425Z",
+      "theme": "強そうな生き物",
+      "players": 6,
+      "mistakes": 2,
+      "perfect": false,
+      "seats": {
+        "P1": {
+          "model": "gemini-3.7-flash",
+          "number": 33,
+          "clue": "柴犬",
+          "legibility": 0.658,
+          "decoding": 0.664
+        },
+        "P2": {
+          "model": "claude-opus-5 · medium",
+          "number": 35,
+          "clue": "大型犬",
+          "legibility": 0.67,
+          "decoding": 0.856
+        },
+        "P3": {
+          "model": "claude-fable-5 · medium",
+          "number": 82,
+          "clue": "ライオン",
+          "legibility": 0.796,
+          "decoding": 0.778
+        },
+        "P4": {
+          "model": "kmodel_latest · high",
+          "number": 84,
+          "clue": "ヒグマ",
+          "legibility": 0.856,
+          "decoding": 0.754
+        },
+        "P5": {
+          "model": "gpt-5.6-sol · medium",
+          "number": 20,
+          "clue": "アライグマ",
+          "legibility": 0.646,
+          "decoding": 0.814
+        },
+        "P6": {
+          "model": "grok-4.6 · medium",
+          "number": 4,
+          "clue": "ダンゴムシ",
+          "legibility": 0.958,
+          "decoding": 0.718
+        }
+      },
+      "plays": [
+        {
+          "player": "P6",
+          "number": 4,
+          "kind": "played",
+          "ok": true
+        },
+        {
+          "player": "P5",
+          "number": 20,
+          "kind": "skipped"
+        },
+        {
+          "player": "P1",
+          "number": 33,
+          "kind": "played",
+          "ok": false
+        },
+        {
+          "player": "P2",
+          "number": 35,
+          "kind": "played",
+          "ok": true
+        },
+        {
+          "player": "P3",
+          "number": 82,
+          "kind": "skipped"
+        },
+        {
+          "player": "P4",
+          "number": 84,
+          "kind": "played",
+          "ok": false
+        }
+      ],
+      "notes": [
+        "First game under the one-round-per-game unit and the announce phase (players present their own clues in the talk room).",
+        "The agreed order P6-P1-P5-P2-P4-P3 was played out faithfully; the true order was P6-P5-P1-P2-P3-P4. Both mistakes were consensus errors: P1(33)/P5(20) swapped, and P4(84) played before P3(82) after the lion-vs-bear debate missed by 2 points.",
+        "The theme header landed mid-announce due to an announcer restart; the hold-gate (referee open) was added after this game to guarantee ordering."
+      ]
+    },
+    {
+      "id": "g002",
+      "kind": "one-round-discussion-6p",
+      "playedAt": "2026-08-20T08:46:26.638Z",
+      "theme": "面白い漫画(実在の作品名で答える)",
+      "players": 6,
+      "mistakes": 0,
+      "perfect": true,
+      "seats": {
+        "P1": {
+          "model": "gpt-5.6-sol · medium",
+          "number": 73,
+          "clue": "斉木楠雄のΨ難",
+          "legibility": 0.826,
+          "decoding": 0.568
+        },
+        "P2": {
+          "model": "claude-opus-5 · medium",
+          "number": 7,
+          "clue": "サザエさん",
+          "legibility": 0.412,
+          "decoding": 0.694
+        },
+        "P3": {
+          "model": "grok-4.6 · medium",
+          "number": 59,
+          "clue": "月刊少女野崎くん",
+          "legibility": 0.808,
+          "decoding": 0.67
+        },
+        "P4": {
+          "model": "claude-fable-5 · medium",
+          "number": 75,
+          "clue": "銀魂",
+          "legibility": 0.556,
+          "decoding": 0.7
+        },
+        "P5": {
+          "model": "kmodel_latest · high",
+          "number": 32,
+          "clue": "あたしンち",
+          "legibility": 0.682,
+          "decoding": 0.712
+        },
+        "P6": {
+          "model": "gemini-3.7-flash",
+          "number": 27,
+          "clue": "コボちゃん",
+          "legibility": 0.61,
+          "decoding": 0.55
+        }
+      },
+      "plays": [
+        {
+          "player": "P2",
+          "number": 7,
+          "kind": "played",
+          "ok": true
+        },
+        {
+          "player": "P6",
+          "number": 27,
+          "kind": "played",
+          "ok": true
+        },
+        {
+          "player": "P5",
+          "number": 32,
+          "kind": "played",
+          "ok": true
+        },
+        {
+          "player": "P3",
+          "number": 59,
+          "kind": "played",
+          "ok": true
+        },
+        {
+          "player": "P1",
+          "number": 73,
+          "kind": "played",
+          "ok": true
+        },
+        {
+          "player": "P4",
+          "number": 75,
+          "kind": "played",
+          "ok": true
+        }
+      ],
+      "notes": [
+        "Clues were real manga titles (constraint embedded in the theme text).",
+        "The agreed order P6-P2-P5-P3-P1-P4 was wrong at the head: P2 (Sazae-san, 7) was below P6 (Kobo-chan, 27). In the play phase P2 deviated from the consensus and led with 7 - a perfect round saved by trusting one's own number over the agreement.",
+        "First game with the hold-gated theme header and result-only closing post (no mid-game phase headers, no seat-reveal post)."
+      ]
+    }
+  ]
+}
