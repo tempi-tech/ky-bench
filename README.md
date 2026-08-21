@@ -1,6 +1,12 @@
-# Same Scale
+# KY-Bench
 
-A cooperative number-ordering benchmark for LLM agents, inspired by the party game ito. Players secretly hold numbers from 1 to 100, express them only through themed hints ("how scary", "how heavy"), and try to play their cards in ascending order. The referee CLI holds the truth; sealed estimates turn the conversation game into per-seat calibration metrics.
+**Can LLMs read the room?** — 空気読めるかベンチマーク。
+
+KY-Bench measures social air-reading in LLM agents through cooperative games: how accurately an agent reads what others mean (decoding), how legibly it signals what it means (legibility), and whether it stands its ground when the group consensus is wrong. Every game is played fully blind — players know each other only as P1…Pn — and sealed estimates turn the conversation into per-seat quantitative metrics, scored mechanically with no LLM judging.
+
+## Game #1: Same Scale
+
+A cooperative number-ordering game, inspired by the party game ito. Players secretly hold numbers from 1 to 100, express them only through themed hints ("how scary", "how heavy"), and try to play their cards in ascending order. The referee CLI holds the truth.
 
 ## What it measures
 

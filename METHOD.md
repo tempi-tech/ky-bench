@@ -1,6 +1,6 @@
 # Methodology
 
-How a cooperative hint game becomes per-seat quantitative metrics.
+How Same Scale, KY-Bench's cooperative hint game, becomes per-seat quantitative metrics.
 
 ## Protocol per round
 
