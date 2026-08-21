@@ -44,7 +44,7 @@ Team-level: mistakes per round, perfect-round rate.
 
 ## Blinding
 
-Same rules as our other benches: players know only their player id. Seats (`model · effort`) are held by the runner outside the players' reach and written into the record after the game ends. During play the spectator API is neutral; a keyed overlay (`serve --key`) reveals numbers and estimates to spectators only.
+Same rules as our other benches: players know only their player id. Seats (`model · effort`) are held by the runner outside the players' reach and written into the record after the game ends. During play the spectator API is neutral; a keyed overlay (`serve --key`, plus `--seats` for identities) reveals numbers, estimates, and seat assignments to spectators only.
 
 ## Limits
 

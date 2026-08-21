@@ -472,6 +472,30 @@ const sendJson = ({ response, status, body }) => {
   response.end(payload);
 };
 
+const seatLabelOf = (seat) => {
+  if (typeof seat === "string") {
+    return seat;
+  }
+  if (typeof seat.display === "string") {
+    return seat.display;
+  }
+  const redundant = typeof seat.model === "string" && typeof seat.agentType === "string" && seat.model.startsWith(seat.agentType);
+  return [redundant ? null : seat.agentType, seat.model, seat.effort].filter(Boolean).join(" · ");
+};
+
+const seatsViewOf = (seatsPath) => {
+  if (!seatsPath || !fs.existsSync(seatsPath)) {
+    return null;
+  }
+  try {
+    const parsed = JSON.parse(fs.readFileSync(seatsPath, "utf8"));
+    const seats = parsed.seats ?? parsed;
+    return Object.fromEntries(Object.entries(seats).map(([player, seat]) => [player, seatLabelOf(seat)]));
+  } catch {
+    return null;
+  }
+};
+
 const talkViewOf = (talkPath) => {
   if (!talkPath || !fs.existsSync(talkPath)) {
     return { messages: [] };
@@ -484,7 +508,7 @@ const talkViewOf = (talkPath) => {
   }
 };
 
-const startServer = ({ matchId, port, key, talkPath }) => {
+const startServer = ({ matchId, port, key, talkPath, seatsPath }) => {
   const server = http.createServer((request, response) => {
     const url = new URL(request.url ?? "/", `http://127.0.0.1:${port}`);
     if (request.method === "GET" && (url.pathname === "/" || url.pathname === "/index.html")) {
@@ -502,7 +526,8 @@ const startServer = ({ matchId, port, key, talkPath }) => {
     if (request.method === "GET" && url.pathname === "/api/state") {
       try {
         const full = Boolean(key) && url.searchParams.get("key") === key;
-        sendJson({ response, status: 200, body: spectatorViewOf({ match: readMatch(matchId), full }) });
+        const view = spectatorViewOf({ match: readMatch(matchId), full });
+        sendJson({ response, status: 200, body: full ? { ...view, seats: seatsViewOf(seatsPath) } : view });
       } catch (error) {
         sendJson({ response, status: 404, body: { error: error.message } });
       }
@@ -608,7 +633,7 @@ const helpText = `referee — cooperative number-ordering bench
   node referee.mjs play --as P1 [--id current]
   node referee.mjs pass --as P1 [--id current]
   node referee.mjs report [--id current]
-  node referee.mjs serve [--id current] [--port 8768] [--key token] [--talk talk.json]
+  node referee.mjs serve [--id current] [--port 8768] [--key token] [--talk talk.json] [--seats seats.json]
   node referee.mjs selftest
 `;
 
@@ -696,6 +721,7 @@ try {
       port,
       key: typeof flags.key === "string" ? flags.key : null,
       talkPath: typeof flags.talk === "string" ? path.resolve(flags.talk) : null,
+      seatsPath: typeof flags.seats === "string" ? path.resolve(flags.seats) : null,
     });
   } else {
     fail(`unknown command: ${command}`);

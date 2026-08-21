@@ -19,6 +19,7 @@
       .card { border: 1px solid rgba(243, 234, 214, 0.16); padding: 14px 16px; }
       .card.turn { border-color: #d9b56a; }
       .card .who { letter-spacing: 0.18em; text-transform: uppercase; font-size: 11px; color: #d9b56a; margin: 0 0 8px; }
+      .card .seat { margin: -6px 0 8px; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: rgba(217, 181, 106, 0.75); }
       .card .clue { margin: 0; font-size: 17px; line-height: 1.5; min-height: 3em; }
       .card .num { font-family: "IBM Plex Mono", monospace; color: rgba(243, 234, 214, 0.6); font-size: 13px; margin: 8px 0 0; }
       .line { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; min-height: 56px; margin-bottom: 20px; }
@@ -62,7 +63,10 @@
           const card = document.createElement("div");
           card.className = `card${view.turn === id && view.phase === "order" ? " turn" : ""}`;
           const number = view.numbers?.[id];
-          card.innerHTML = `<p class="who">${player.name}</p><p class="clue">${view.clues[id] ?? "…"}</p>` +
+          const seat = view.seats?.[id];
+          card.innerHTML = `<p class="who">${player.name}</p>` +
+            (seat ? `<p class="seat">${seat}</p>` : "") +
+            `<p class="clue">${view.clues[id] ?? "…"}</p>` +
             (number === undefined ? "" : `<p class="num">number: ${number}</p>`);
           cards.append(card);
         }
