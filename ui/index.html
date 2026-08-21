@@ -27,6 +27,12 @@
       .stone.bad { border-color: #c96a5a; color: #e8a496; }
       .foot { color: rgba(243, 234, 214, 0.7); font-size: 14px; }
       .foot b { color: #d9b56a; font-weight: 500; }
+      .talk { margin-top: 28px; border-top: 1px solid rgba(243, 234, 214, 0.16); padding-top: 18px; }
+      .feed { margin-top: 14px; max-height: 46vh; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+      .msg { border: 1px solid rgba(243, 234, 214, 0.12); padding: 10px 14px; }
+      .msg.sys { border-color: rgba(217, 181, 106, 0.45); background: rgba(217, 181, 106, 0.05); }
+      .msg .name { margin: 0; letter-spacing: 0.16em; text-transform: uppercase; font-size: 10px; color: #d9b56a; }
+      .msg .text { margin: 5px 0 0; font-size: 15px; line-height: 1.55; }
     </style>
   </head>
   <body>
@@ -37,6 +43,10 @@
     <div class="cards" id="cards"></div>
     <div class="line" id="line"></div>
     <p class="foot" id="foot"></p>
+    <div class="talk" id="talk" hidden>
+      <p class="kicker">Talk Room</p>
+      <div class="feed" id="feed"></div>
+    </div>
     <script>
       const query = window.location.search;
       const render = (view) => {
@@ -67,10 +77,40 @@
         document.getElementById("foot").innerHTML = view.incidents.length
           ? `incidents: <b>${view.incidents.length}</b>` : "no incidents";
       };
+      const seen = { seq: 0 };
+      const renderTalk = (data) => {
+        const fresh = (data.messages ?? []).filter((message) => (message.seq ?? 0) > seen.seq);
+        if (!fresh.length) {
+          return;
+        }
+        document.getElementById("talk").hidden = false;
+        const feed = document.getElementById("feed");
+        const pinned = feed.scrollTop + feed.clientHeight >= feed.scrollHeight - 40;
+        for (const message of fresh) {
+          const entry = document.createElement("div");
+          entry.className = `msg${/^P[1-9]$/.test(message.name) ? "" : " sys"}`;
+          const name = document.createElement("p");
+          name.className = "name";
+          name.textContent = message.name;
+          const text = document.createElement("p");
+          text.className = "text";
+          text.textContent = message.text;
+          entry.append(name, text);
+          feed.append(entry);
+          seen.seq = Math.max(seen.seq, message.seq ?? 0);
+        }
+        if (pinned) {
+          feed.scrollTop = feed.scrollHeight;
+        }
+      };
       const pull = async () => {
         const response = await fetch(`/api/state${query}`, { cache: "no-store" });
         if (response.ok) {
           render(await response.json());
+        }
+        const talk = await fetch("/api/talk", { cache: "no-store" });
+        if (talk.ok) {
+          renderTalk(await talk.json());
         }
       };
       pull();

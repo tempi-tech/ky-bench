@@ -43,11 +43,13 @@ node referee.mjs said --as P1
 node referee.mjs open [--id current]
 node referee.mjs play | pass --as P1
 node referee.mjs report [--id current]
-node referee.mjs serve [--port 8768] [--key token]
+node referee.mjs serve [--port 8768] [--key token] [--talk talk.json]
 node referee.mjs selftest
 ```
 
 `serve` shows a neutral spectator page; adding `?key=<token>` (set via `--key`) reveals secret numbers and estimates to spectators only.
+
+`--talk` embeds a live discussion feed at the bottom of the spectator page. Point it at a JSON file shaped `{"messages":[{"seq":1,"name":"P1","text":"...","at":"ISO"}]}` and keep the file updated with whatever chat system hosts the discussion — the runner mirrors the transcript in, the referee stays chat-agnostic.
 
 ## License
 

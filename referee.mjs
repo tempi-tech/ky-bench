@@ -472,7 +472,19 @@ const sendJson = ({ response, status, body }) => {
   response.end(payload);
 };
 
-const startServer = ({ matchId, port, key }) => {
+const talkViewOf = (talkPath) => {
+  if (!talkPath || !fs.existsSync(talkPath)) {
+    return { messages: [] };
+  }
+  try {
+    const parsed = JSON.parse(fs.readFileSync(talkPath, "utf8"));
+    return { messages: Array.isArray(parsed.messages) ? parsed.messages : [] };
+  } catch {
+    return { messages: [] };
+  }
+};
+
+const startServer = ({ matchId, port, key, talkPath }) => {
   const server = http.createServer((request, response) => {
     const url = new URL(request.url ?? "/", `http://127.0.0.1:${port}`);
     if (request.method === "GET" && (url.pathname === "/" || url.pathname === "/index.html")) {
@@ -494,6 +506,10 @@ const startServer = ({ matchId, port, key }) => {
       } catch (error) {
         sendJson({ response, status: 404, body: { error: error.message } });
       }
+      return;
+    }
+    if (request.method === "GET" && url.pathname === "/api/talk") {
+      sendJson({ response, status: 200, body: talkViewOf(talkPath) });
       return;
     }
     response.writeHead(404);
@@ -592,7 +608,7 @@ const helpText = `referee — cooperative number-ordering bench
   node referee.mjs play --as P1 [--id current]
   node referee.mjs pass --as P1 [--id current]
   node referee.mjs report [--id current]
-  node referee.mjs serve [--id current] [--port 8768] [--key token]
+  node referee.mjs serve [--id current] [--port 8768] [--key token] [--talk talk.json]
   node referee.mjs selftest
 `;
 
@@ -675,7 +691,12 @@ try {
   } else if (command === "serve") {
     const port = flags.port === undefined ? 8768 : Number(flags.port);
     readMatch(matchId);
-    startServer({ matchId, port, key: typeof flags.key === "string" ? flags.key : null });
+    startServer({
+      matchId,
+      port,
+      key: typeof flags.key === "string" ? flags.key : null,
+      talkPath: typeof flags.talk === "string" ? path.resolve(flags.talk) : null,
+    });
   } else {
     fail(`unknown command: ${command}`);
   }
